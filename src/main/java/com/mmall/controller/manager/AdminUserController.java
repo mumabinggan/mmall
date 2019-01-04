@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/admin/")
+@RequestMapping("/admin/user/")
 public class AdminUserController {
 
 	@Autowired
