@@ -20,4 +20,6 @@ public interface IUserService {
 	JHResponse<User> updateUserInfo(User user, User updateUser);
 
 	JHResponse<User> getInfomation(Integer userId);
+
+	JHResponse checkAdminRole(User user);
 }

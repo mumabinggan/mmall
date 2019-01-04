@@ -4,11 +4,10 @@ import com.mmall.common.*;
 import com.mmall.dao.UserMapper;
 import com.mmall.pojo.User;
 import com.mmall.service.IUserService;
-import org.apache.commons.lang3.StringUtils;
+import com.mmall.utils.JHStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Random;
 import java.util.UUID;
 
 @Service("iUserService")
@@ -178,5 +177,13 @@ public class UserServiceImpl implements IUserService {
 		}
 		user.setPassword(null);
 		return JHResponse.createBySuccess(JHResponseCode.Success_GetUserInfoSuccess);
+	}
+
+	@Override
+	public JHResponse checkAdminRole(User user) {
+		if (user != null && user.getRole() == JHConst.Role.Admin) {
+			return JHResponse.createBySuccess(JHResponseCode.Success);
+		}
+		return JHResponse.createBySuccess(JHResponseCode.Error);
 	}
 }

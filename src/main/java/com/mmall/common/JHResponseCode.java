@@ -36,7 +36,18 @@ public enum JHResponseCode {
 	Success_UpdateUserInfoSuccess(0, "更新用户信息成功"),
 
 
-	Error_UnAdminLogin(0, "非管理员不能登录"),
+	Error_UnAdminLogin(2005101, "非管理员不能登录"),
+
+	Error_GetSubCategoryListError(2006101, "得到子分类列表失败"),
+	Success_GetSubCategoryListSuccess(0, "得到子分类列表成功"),
+
+	Error_AddCategoryError(2007102, "添加分类失败"),
+	Success_AddCategorySuccess(0, "添加分类成功"),
+
+	Error_UpdateCategoryError(2007102, "更新分类失败"),
+	Success_UpdateCategorySuccess(0, "更新分类成功"),
+
+	Success_GetDeepSubCategorySuccess(0, "得到子分类成功"),
 
 	Error_XXX(2000001, "用户名不存在");
 
