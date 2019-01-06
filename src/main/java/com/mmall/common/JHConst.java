@@ -1,5 +1,13 @@
 package com.mmall.common;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import sun.security.krb5.internal.crypto.Des;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class JHConst {
 	public static String SessionUserKey = "kSessionUserKey";
 
@@ -11,5 +19,21 @@ public class JHConst {
 	public interface CheckUserValidType {
 		int Username = 0;	//用户名
 		int Email = 1;		//邮箱
+	}
+
+	public interface ProductStatus {
+		int OnSale = 1;		//在售
+		int OffSale = 2;	//下架
+	}
+
+	public interface ProductOrderBy {
+		int PriceAsc = 0;
+		int PriceDesc = 1;
+		HashMap<Integer, String> PriceOrderByMap = new HashMap<Integer, String>() {
+			{
+				put(PriceDesc, "price_desc");
+				put(PriceAsc, "price_asc");
+			}
+		};
 	}
 }

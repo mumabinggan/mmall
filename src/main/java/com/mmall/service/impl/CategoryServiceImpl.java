@@ -71,4 +71,24 @@ public class CategoryServiceImpl implements ICategoryService {
 			this.getDeepSubCategorySet(item.getId(), categorySet);
 		}
 	}
+
+	@Override
+	public JHResponse<Set<Integer>> getDeepSubCategoryIdListByCategoryId(Integer categoryId) {
+		Set categorySet = new HashSet();
+		this.getDeepSubCategoryIdSet(categoryId, categorySet);
+		return JHResponse.createBySuccess(JHResponseCode.Success_GetDeepSubCategorySuccess,
+				categorySet);
+	}
+
+	public void getDeepSubCategoryIdSet(Integer categoryId, Set<Integer> categorySet) {
+		Category category = categoryMapper.selectByPrimaryKey(categoryId);
+		if (category != null) {
+			categorySet.add(category.getId());
+		}
+		List<Category> list = this.getSubCategoryListByCategoryId(categoryId).getData();
+		for (Category item : list) {
+			categorySet.add(item.getId());
+			this.getDeepSubCategoryIdSet(item.getId(), categorySet);
+		}
+	}
 }

@@ -15,4 +15,6 @@ public interface ICategoryService {
 	JHResponse updateCategory(Category category);
 
 	JHResponse<Set<Category>> getDeepSubCategoryListByCategoryId(Integer categoryId);
+
+	JHResponse<Set<Integer>> getDeepSubCategoryIdListByCategoryId(Integer categoryId);
 }

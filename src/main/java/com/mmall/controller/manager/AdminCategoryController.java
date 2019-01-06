@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/category/")
+@RequestMapping("/admin/category")
 public class AdminCategoryController {
 
 	@Autowired

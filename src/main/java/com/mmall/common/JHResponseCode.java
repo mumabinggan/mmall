@@ -49,6 +49,29 @@ public enum JHResponseCode {
 
 	Success_GetDeepSubCategorySuccess(0, "得到子分类成功"),
 
+	Error_AddProductError(2008101, "增加产品失败"),
+	Success_AddProductSuccess(0, "增加产品成功"),
+
+	Error_UpdateProductError(2009101, "更新产品失败"),
+	Success_UpdateProductSuccess(0, "更新产品成功"),
+
+	Error_SetProductStatusError(2010101, "更新产品状态失败"),
+	Success_SetProductStatusSuccess(0, "更新产品状态成功"),
+
+	Error_ProductUnExist(2011101, "商品不存在"),
+	Error_ProductOffSale(2011102, "商品已下架"),
+	Error_GetProductDetailError(2011102, "得到商品详情失败"),
+	Success_GetProductDetailSuccess(0, "得到商品详情成功"),
+
+	Error_GetProductListError(2011102, "得到商品列表失败"),
+	Success_GetProductListSuccess(0, "得到商品列表成功"),
+
+	Error_SearchProductListError(2012102, "搜索商品列表失败"),
+	Success_SearchProductListSuccess(0, "搜索商品列表成功"),
+
+	Error_CustomSearchProductListError(2013102, "搜索商品列表失败"),
+	Success_CustomSearchProductListSuccess(0, "搜索商品列表成功"),
+
 	Error_XXX(2000001, "用户名不存在");
 
 	private final int code;
