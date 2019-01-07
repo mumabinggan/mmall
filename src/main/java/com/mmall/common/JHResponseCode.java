@@ -9,6 +9,7 @@ public enum JHResponseCode {
 
 	Error_UsernameUnExist(2000001, "用户名不存在"),
 	Error_PasswordError(2000002, "密码错误"),
+	Error_UserUnExist(2000003, "用户不存在"),
 	Success_LoginSuccess(0, "登录成功"),
 
 	Error_UsernameIsEmpty(2001001, "用户名为空"),
@@ -71,6 +72,9 @@ public enum JHResponseCode {
 
 	Error_CustomSearchProductListError(2013102, "搜索商品列表失败"),
 	Success_CustomSearchProductListSuccess(0, "搜索商品列表成功"),
+
+	Error_UploadFilesError(0, "上传文件失败"),
+	Success_UploadFilesSuccess(0, "上传文件成功"),
 
 	Error_XXX(2000001, "用户名不存在");
 

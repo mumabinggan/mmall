@@ -11,12 +11,16 @@ import com.mmall.dao.ProductMapper;
 import com.mmall.pojo.Category;
 import com.mmall.pojo.Product;
 import com.mmall.service.ICategoryService;
+import com.mmall.service.IFileUploadService;
 import com.mmall.service.IProductService;
+import com.mmall.utils.JHPropertiesUtil;
 import com.mmall.utils.JHStringUtils;
+import com.mmall.vo.FileUploadVO;
 import com.mmall.vo.ProductDetailVO;
 import com.mmall.vo.ProductListItemVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +37,9 @@ public class ProductServiceImpl implements IProductService {
 
 	@Autowired
 	private CategoryMapper categoryMapper;
+
+	@Autowired
+	private IFileUploadService iFileUploadService;
 
 	@Override
 	public JHResponse saveOrUpdateProduct(Product product) {
@@ -196,5 +203,15 @@ public class ProductServiceImpl implements IProductService {
 		}
 		pageInfo.setList(itemVOList);
 		return JHResponse.createBySuccess(JHResponseCode.Success_CustomSearchProductListSuccess, pageInfo);
+	}
+
+	@Override
+	public JHResponse<FileUploadVO> uploadFiles(MultipartFile file, String path) {
+		String targetFileName = iFileUploadService.upload(file, path);
+		if (JHStringUtils.isBlank(targetFileName)) {
+			return JHResponse.createByError(JHResponseCode.Error_UploadFilesError);
+		}
+		String url = JHPropertiesUtil.getProperty("ftp.server.http.prefix") + targetFileName;
+		return JHResponse.createBySuccess(JHResponseCode.Success_UploadFilesSuccess, new FileUploadVO(url, targetFileName));
 	}
 }

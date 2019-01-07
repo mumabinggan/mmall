@@ -7,16 +7,23 @@ import com.mmall.common.JHResponse;
 import com.mmall.common.JHResponseCode;
 import com.mmall.pojo.Product;
 import com.mmall.pojo.User;
+import com.mmall.service.IFileUploadService;
 import com.mmall.service.IProductService;
 import com.mmall.service.IUserService;
+import com.mmall.vo.FileUploadVO;
+import com.mmall.vo.RichTextImgFileUplaodVO;
+import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.Response;
 
 @Controller
 @RequestMapping("/admin/product")
@@ -27,6 +34,9 @@ public class AdminProductController {
 
 	@Autowired
 	private IProductService iProductService;
+
+	@Autowired
+	private IFileUploadService iFileUploadService;
 
 	/**
 	 * 发布商品
@@ -146,6 +156,58 @@ public class AdminProductController {
 		}
 		else {
 			return JHResponse.createByError(JHResponseCode.Error_UnAdminLogin);
+		}
+	}
+
+	/**
+	 * 上传文件
+	 * @param file
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "uploadFiles.do", method = RequestMethod.POST)
+	@ResponseBody
+	public JHResponse<FileUploadVO> uploadFiles(MultipartFile file, HttpSession session) {
+		User user = (User) session.getAttribute(JHConst.SessionUserKey);
+		if (user == null) {
+			return JHResponse.createByError(JHResponseCode.ReLogin);
+		}
+		if (iUserService.checkAdminRole(user).isSuccess()) {
+			String path = session.getServletContext().getRealPath("upload");
+			return iProductService.uploadFiles(file, path);
+		}
+		else {
+			return JHResponse.createByError(JHResponseCode.Error_UnAdminLogin);
+		}
+	}
+
+	/**
+	 * 上传富文本图片文件(基于Simditor)
+	 * @param file
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "uploadRichTextImgFiles.do", method = RequestMethod.POST)
+	@ResponseBody
+	public RichTextImgFileUplaodVO uploadRichTextImgFiles(MultipartFile file, HttpSession session, HttpServletResponse servletResponse) {
+		User user = (User) session.getAttribute(JHConst.SessionUserKey);
+		if (user == null) {
+			return new RichTextImgFileUplaodVO(false, JHResponseCode.Error_UserUnExist.getMsg());
+		}
+		if (iUserService.checkAdminRole(user).isSuccess()) {
+			String path = session.getServletContext().getRealPath("upload");
+			JHResponse<FileUploadVO> response = iProductService.uploadFiles(file, path);
+			if (response.isSuccess()) {
+				servletResponse.addHeader("Access-Control-Allow-Headers", "X-File-Name");
+				return new RichTextImgFileUplaodVO(true,
+						JHResponseCode.Success_UploadFilesSuccess.getMsg(),
+						response.getData().getUrl());
+			} else {
+				return new RichTextImgFileUplaodVO(false, JHResponseCode.Error_UploadFilesError.getMsg());
+			}
+		}
+		else {
+			return new RichTextImgFileUplaodVO(false, JHResponseCode.Error_UnAdminLogin.getMsg());
 		}
 	}
 }
