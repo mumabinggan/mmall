@@ -36,4 +36,12 @@ public class JHConst {
 			}
 		};
 	}
+
+	public interface Cart {
+		int UnCheck = 0;	//没有选中
+		int Check = 1;		//选中
+
+		int UnLimitQuantity = 0;	//没有限制
+		int LimitQuantity = 1;		//限制
+	}
 }

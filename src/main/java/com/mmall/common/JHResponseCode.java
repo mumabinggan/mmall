@@ -76,6 +76,12 @@ public enum JHResponseCode {
 	Error_UploadFilesError(0, "上传文件失败"),
 	Success_UploadFilesSuccess(0, "上传文件成功"),
 
+	Error_AddProductToCartError(0, "增加购物车失败"),
+	Success_AddProductToCartSuccess(0, "增加购物车成功"),
+
+	Error_DeleteProductFromCartError(0, "从购物车中删除商品失败"),
+	Success_DeleteProductFromCartSuccess(0, "从购物车中删除商品成功"),
+
 	Error_XXX(2000001, "用户名不存在");
 
 	private final int code;
