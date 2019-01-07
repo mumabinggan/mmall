@@ -98,4 +98,40 @@ public class CartServiceImpl implements ICartService {
 		}
 		return JHResponse.createBySuccess(JHResponseCode.Success_DeleteProductFromCartSuccess, cartVO);
 	}
+
+	public JHResponse<CartVO> list(Integer userId) {
+		if (userId == null) {
+			return JHResponse.createByError(JHResponseCode.InvalidArgument);
+		}
+		CartVO cartVO = cartVOByUserId(userId);
+		if (cartVO == null) {
+			return JHResponse.createByError(JHResponseCode.Error_GetProductListFromCartError);
+		}
+		return JHResponse.createBySuccess(JHResponseCode.Success_GetProductListFromCartSuccess,
+				cartVO);
+	}
+
+	public JHResponse<CartVO> checkProduct(Integer userId, Integer productId, Integer checked) {
+		if (userId == null || checked == null) {
+			return JHResponse.createByError(JHResponseCode.InvalidArgument);
+		}
+		int count = cartMapper.updateCheckedByUserIdAndProductIdAndChecked(userId, productId, checked);
+		if (count <= 0) {
+			return JHResponse.createByError(JHResponseCode.Error_SetCheckedProductFromCartError);
+		}
+		CartVO cartVO = cartVOByUserId(userId);
+		if (cartVO == null) {
+			return JHResponse.createByError(JHResponseCode.Error_SetCheckedProductFromCartError);
+		}
+		return JHResponse.createBySuccess(JHResponseCode.Success_SetCheckedProductFromCartSuccess,
+				cartVO);
+	}
+
+	public JHResponse<Integer> getProductCountFromCart(Integer userId) {
+		if (userId == null) {
+			return JHResponse.createBySuccess(JHResponseCode.Error_GetProductCountInCartError);
+		}
+		int count = cartMapper.selectProductCountFromCartByUserId(userId);
+		return JHResponse.createBySuccess(JHResponseCode.Success_GetProductCountInCartSuccess, count);
+	}
 }

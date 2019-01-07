@@ -69,4 +69,96 @@ public class CartController {
 		}
 		return iCartService.deleteProducts(user.getId(), productIds);
 	}
+
+	/**
+	 * 得到购物车里商品列表
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "productListFromCart.do")
+	@ResponseBody
+	public JHResponse<CartVO> productListFromCart(HttpSession session) {
+		User user = (User) session.getAttribute(JHConst.SessionUserKey);
+		if (user == null) {
+			return JHResponse.createByError(JHResponseCode.ReLogin);
+		}
+		return iCartService.list(user.getId());
+	}
+
+	/**
+	 * 选中所有商品
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "checkAllProductFromCart.do")
+	@ResponseBody
+	public JHResponse<CartVO> checkAllProductFromCart(HttpSession session) {
+		User user = (User) session.getAttribute(JHConst.SessionUserKey);
+		if (user == null) {
+			return JHResponse.createByError(JHResponseCode.ReLogin);
+		}
+		return iCartService.checkProduct(user.getId(), null, JHConst.Cart.Check);
+	}
+
+	/**
+	 * 取消选中所有商品
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "unCheckAllProductFromCart.do")
+	@ResponseBody
+	public JHResponse<CartVO> unCheckAllProductFromCart(HttpSession session) {
+		User user = (User) session.getAttribute(JHConst.SessionUserKey);
+		if (user == null) {
+			return JHResponse.createByError(JHResponseCode.ReLogin);
+		}
+		return iCartService.checkProduct(user.getId(), null, JHConst.Cart.UnCheck);
+	}
+
+	/**
+	 * 选中某个商品
+	 * @param session
+	 * @param productId
+	 * @return
+	 */
+	@RequestMapping(value = "checkProductFromCart.do")
+	@ResponseBody
+	public JHResponse<CartVO> checkProductFromCart(HttpSession session, Integer productId) {
+		User user = (User) session.getAttribute(JHConst.SessionUserKey);
+		if (user == null) {
+			return JHResponse.createByError(JHResponseCode.ReLogin);
+		}
+		return iCartService.checkProduct(user.getId(), productId, JHConst.Cart.Check);
+	}
+
+	/**
+	 * 取消某个商品的选中
+	 * @param session
+	 * @param productId
+	 * @return
+	 */
+	@RequestMapping(value = "unCheckProductFromCart.do")
+	@ResponseBody
+	public JHResponse<CartVO> unCheckProductFromCart(HttpSession session, Integer productId) {
+		User user = (User) session.getAttribute(JHConst.SessionUserKey);
+		if (user == null) {
+			return JHResponse.createByError(JHResponseCode.ReLogin);
+		}
+		return iCartService.checkProduct(user.getId(), productId, JHConst.Cart.UnCheck);
+	}
+
+	/**
+	 * 得到购物车商品数量
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "getProductCountFromCart.do")
+	@ResponseBody
+	public JHResponse<Integer> getProductCountFromCart(HttpSession session) {
+		User user = (User) session.getAttribute(JHConst.SessionUserKey);
+		if (user == null) {
+			return JHResponse.createByError(JHResponseCode.ReLogin);
+		}
+		return iCartService.getProductCountFromCart(user.getId());
+	}
 }

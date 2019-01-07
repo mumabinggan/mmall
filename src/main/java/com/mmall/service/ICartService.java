@@ -10,4 +10,10 @@ public interface ICartService {
 	JHResponse<CartVO> update(Integer userId, Integer productId, Integer quantity);
 
 	JHResponse<CartVO> deleteProducts(Integer userId, String productIds);
+
+	JHResponse<CartVO> list(Integer userId);
+
+	JHResponse<CartVO> checkProduct(Integer userId, Integer productId, Integer checked);
+
+	JHResponse<Integer> getProductCountFromCart(Integer userId);
 }

@@ -82,6 +82,15 @@ public enum JHResponseCode {
 	Error_DeleteProductFromCartError(0, "从购物车中删除商品失败"),
 	Success_DeleteProductFromCartSuccess(0, "从购物车中删除商品成功"),
 
+	Error_GetProductListFromCartError(0, "得到商品列表失败"),
+	Success_GetProductListFromCartSuccess(0, "得到商品列表成功"),
+
+	Error_SetCheckedProductFromCartError(0, "设置商品选中失败"),
+	Success_SetCheckedProductFromCartSuccess(0, "设置商品选中成功"),
+
+	Error_GetProductCountInCartError(0, "得到购物车商品数量失败"),
+	Success_GetProductCountInCartSuccess(0, "得到购物车商品数量成功"),
+
 	Error_XXX(2000001, "用户名不存在");
 
 	private final int code;
