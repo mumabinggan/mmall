@@ -91,6 +91,21 @@ public enum JHResponseCode {
 	Error_GetProductCountInCartError(0, "得到购物车商品数量失败"),
 	Success_GetProductCountInCartSuccess(0, "得到购物车商品数量成功"),
 
+	Error_AddShippingError(0, "添加地址失败"),
+	Success_AddShippingSuccess(0, "添加地址成功"),
+
+	Error_UpdateShippingError(0, "更新地址失败"),
+	Success_UpdateShippingSuccess(0, "更新地址成功"),
+
+	Error_DeleteShippingError(0, "删除地址失败"),
+	Success_DeleteShippingSuccess(0, "删除地址成功"),
+
+	Error_GetShippingListError(0, "得到地址列表失败"),
+	Success_GetShippingListSuccess(0, "得到地址列表成功"),
+
+	Error_GetShippingError(0, "得到地址失败"),
+	Success_GetShippingSuccess(0, "得到地址成功"),
+
 	Error_XXX(2000001, "用户名不存在");
 
 	private final int code;
