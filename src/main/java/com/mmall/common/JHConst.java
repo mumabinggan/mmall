@@ -44,4 +44,77 @@ public class JHConst {
 		int UnLimitQuantity = 0;	//没有限制
 		int LimitQuantity = 1;		//限制
 	}
+
+	public interface Order {
+		enum StatusEnum{
+			Canceled(0,"已取消"),
+			No_Pay(10,"未支付"),
+			Paid(20,"已付款"),
+			Shipped(40,"已发货"),
+			Order_Success(50,"订单完成"),
+			Order_Close(60,"订单关闭");
+
+			StatusEnum(int code,String value){
+				this.code = code;
+				this.value = value;
+			}
+			private int code;
+			private String value;
+
+			public int getCode() {
+				return code;
+			}
+			public String getValue() {
+				return value;
+			}
+			public static StatusEnum codeOf(int code) {
+				for(StatusEnum statusEnum : values()) {
+					if(statusEnum.getCode() == code) {
+						return statusEnum;
+					}
+				}
+				throw new RuntimeException("么有找到对应的枚举");
+			}
+		}
+	}
+
+	public interface TradeStatus {
+		interface AliPay {
+			String Wait_Buyer_Pay = "WAIT_BUYER_PAY";
+			String Trade_Success = "TRADE_SUCCESS";
+
+			String Response_Success = "success";
+			String Response_Failed = "failed";
+		}
+	}
+
+	public interface Pay {
+		enum PlatformEnum {
+			Alipay(1, "支付宝"),
+			Wechat(1, "微信");
+			PlatformEnum(int code, String name) {
+				this.code = code;
+				this.name = name;
+			}
+			private int code;
+			private String name;
+
+			public int getCode() {
+				return code;
+			}
+
+			public void setCode(int code) {
+				this.code = code;
+			}
+
+			public String getName() {
+				return name;
+			}
+
+			public void setName(String name) {
+				this.name = name;
+			}
+		}
+	}
+
 }

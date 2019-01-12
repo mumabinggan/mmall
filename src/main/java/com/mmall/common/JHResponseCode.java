@@ -106,6 +106,25 @@ public enum JHResponseCode {
 	Error_GetShippingError(0, "得到地址失败"),
 	Success_GetShippingSuccess(0, "得到地址成功"),
 
+
+	Error_GetOrderError(0, "得到订单失败"),
+	Error_GetOrderUnExist(0, "订单不存在"),
+	Error_GetOrderQrUrlError(0, "得到订单支付宝二维码失败"),
+	Success_GetOrderPayInfoSuccess(0, "得到订单支付信息成功"),
+
+	Error_CheckAlipayCallbackError(0, "支付宝回调失败"),
+	Success_CheckAlipayCallbackSuccess(0, "支付宝回调成功"),
+
+	Success_AliPayRepeatCallbackSuccess(0, "支付宝重复回调"),
+
+	Error_UpdateOrderStatusError(0, "更新订单状态失败"),
+
+	Error_SavePayInfoError(0, "保存支付信息失败"),
+	Success_SavePayInfoSuccess(0, "保存支付信息成功"),
+
+	Error_GetPayFailInfoError(0, "没有支付成功"),
+	Success_GetPaySuccessInfoSuccess(0, "支付成功"),
+
 	Error_XXX(2000001, "用户名不存在");
 
 	private final int code;

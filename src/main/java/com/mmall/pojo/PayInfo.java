@@ -30,6 +30,10 @@ public class PayInfo {
         this.updateTime = updateTime;
     }
 
+    public PayInfo(Integer userId, Long orderNo, Integer payPlatform, String platformNumber, String platformStatus) {
+        this(null, userId, orderNo, payPlatform, platformNumber, platformStatus, null, null);
+    }
+
     public PayInfo() {
         super();
     }
