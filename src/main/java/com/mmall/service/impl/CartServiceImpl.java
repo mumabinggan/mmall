@@ -53,6 +53,31 @@ public class CartServiceImpl implements ICartService {
 		return JHResponse.createBySuccess(JHResponseCode.Success_AddProductToCartSuccess, cartVO);
 	}
 
+	public CartListItemVO cartListItemByCart(Cart cart) {
+		Product product = productMapper.selectByPrimaryKey(cart.getProductId());
+		CartListItemVO cartListItemVO = new CartListItemVO(product, cart);
+		return cartListItemVO;
+	}
+
+	public BigDecimal totalPrice(List<Cart> cartList) {
+		if (cartList == null) {
+			return null;
+		}
+		BigDecimal totalPrice = JHBigDecimalUtils.BigDecimalWithDouble(0);
+		for (Cart item : cartList) {
+			CartListItemVO cartListItemVO = this.cartListItemByCart(item);
+			if (item.getChecked() == JHConst.Cart.Check) {
+				totalPrice = JHBigDecimalUtils.add(totalPrice.doubleValue(), cartListItemVO.getProductTotalPrice().doubleValue());
+			}
+		}
+		return totalPrice;
+	}
+
+	public BigDecimal totalPriceOfCheckedProduct(Integer userId) {
+		List<Cart> cartList = cartMapper.selectCheckedByUserId(userId);
+		return this.totalPrice(cartList);
+	}
+
 	private CartVO cartVOByUserId(Integer userId) {
 		List<Cart> cartList = cartMapper.selectByUserId(userId);
 		if (cartList == null) {
@@ -61,11 +86,10 @@ public class CartServiceImpl implements ICartService {
 		List<CartListItemVO> cartListItemList = Lists.newArrayList();
 		BigDecimal totalPrice = new BigDecimal("0");
 		for (Cart item : cartList) {
-			Product product = productMapper.selectByPrimaryKey(item.getProductId());
-			CartListItemVO cartListItemVO = new CartListItemVO(product, item);
+			CartListItemVO cartListItemVO = this.cartListItemByCart(item);
 			cartListItemList.add(cartListItemVO);
 			if (item.getChecked() == JHConst.Cart.Check) {
-				JHBigDecimalUtils.add(totalPrice.doubleValue(), cartListItemVO.getProductTotalPrice().doubleValue());
+				totalPrice = JHBigDecimalUtils.add(totalPrice.doubleValue(), cartListItemVO.getProductTotalPrice().doubleValue());
 			}
 		}
 		CartVO cartVO = new CartVO(isAllChecked(userId), totalPrice, cartListItemList);

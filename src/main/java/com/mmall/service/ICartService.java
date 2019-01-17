@@ -1,7 +1,12 @@
 package com.mmall.service;
 
 import com.mmall.common.JHResponse;
+import com.mmall.pojo.Cart;
+import com.mmall.vo.CartListItemVO;
 import com.mmall.vo.CartVO;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 public interface ICartService {
 
@@ -16,4 +21,10 @@ public interface ICartService {
 	JHResponse<CartVO> checkProduct(Integer userId, Integer productId, Integer checked);
 
 	JHResponse<Integer> getProductCountFromCart(Integer userId);
+
+	CartListItemVO cartListItemByCart(Cart cart);
+
+	BigDecimal totalPrice(List<Cart> cartList);
+
+	BigDecimal totalPriceOfCheckedProduct(Integer userId);
 }

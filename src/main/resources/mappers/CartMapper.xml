@@ -129,6 +129,13 @@
     from mmall_cart
     where user_id = #{userId}
   </select>
+  <select id="selectCheckedByUserId" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from mmall_cart
+    where user_id = #{userId}
+    and checked = 1
+  </select>
   <select id="checkoutAllCheckedByUserId" resultMap="BaseResultMap" parameterType="int" >
     select count(1)
     from mmall_cart
@@ -160,4 +167,13 @@
     from mmall_cart
     where user_id = #{userId}
   </select>
+  <delete id="batchDeleteByProductIds" parameterType="list" >
+    delete from mmall_cart
+    where
+    id in
+    <foreach collection="productIdList" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
 </mapper>

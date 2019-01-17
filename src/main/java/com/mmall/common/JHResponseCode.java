@@ -125,6 +125,30 @@ public enum JHResponseCode {
 	Error_GetPayFailInfoError(0, "没有支付成功"),
 	Success_GetPaySuccessInfoSuccess(0, "支付成功"),
 
+	Error_CreateOrderShippingIdError(0, "收货地址错误"),
+	Error_CreateOrderCartUnCheckedProductError(0, "没有选择商品"),
+	Error_CreateOrderError(0, "创建订单错误"),
+	Error_CreateOrderBatchDeleteCartProductError(0, "创建订单清空购物车商品错误"),
+	Error_CreateOrderReduceProductStockError(0, "创建订单减少商品库存错误"),
+	Success_CreateOrderSuccess(0, "创建订单成功"),
+
+	Error_OrderUnExistError(0, "订单不存在"),
+	Error_OrderNOIsEmptyError(0, "订单号为空"),
+	Error_CancelOrderError(0, "取消订单失败"),
+	Error_CancelOrderHadPayError(0, "已支付订单无法取消"),
+	Success_CancelOrderSuccess(0, "取消订单成功"),
+
+	Success_GetCartCheckedProductSuccess(0, "得到购物车中勾选商品成功"),
+
+	Error_GetOrderDetailError(0, "得到订单详情失败"),
+	Success_GetOrderDetailSuccess(0, "得到订单详情成功"),
+
+	Error_GetOrderListError(0, "得到订单列表失败"),
+	Success_GetOrderListSuccess(0, "得到订单列表成功"),
+
+	Error_SendGoodsError(0, "发货失败"),
+	Success_SendGoodsSuccess(0, "发货成功"),
+
 	Error_XXX(2000001, "用户名不存在");
 
 	private final int code;

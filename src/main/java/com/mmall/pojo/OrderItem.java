@@ -1,5 +1,7 @@
 package com.mmall.pojo;
 
+import com.mmall.vo.CartListItemVO;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -38,6 +40,17 @@ public class OrderItem {
         this.totalPrice = totalPrice;
         this.createTime = createTime;
         this.updateTime = updateTime;
+    }
+
+    public OrderItem(CartListItemVO cart, Long orderNo) {
+        this.userId = cart.getUserId();
+        this.orderNo = orderNo;
+        this.productId = cart.getProductId();
+        this.productName = cart.getProductName();
+        this.productImage = cart.getProductMainImage();
+        this.currentUnitPrice = cart.getProductPrice();
+        this.quantity = cart.getQuantity();
+        this.totalPrice = cart.getProductTotalPrice();
     }
 
     public OrderItem() {

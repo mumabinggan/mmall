@@ -115,6 +115,41 @@ public class JHConst {
 				this.name = name;
 			}
 		}
+
+		enum TypeEnum {
+			OnlinePay(1, "在线支付");
+			TypeEnum(int code, String name) {
+				this.code = code;
+				this.name = name;
+			}
+			private int code;
+			private String name;
+
+			public int getCode() {
+				return code;
+			}
+
+			public void setCode(int code) {
+				this.code = code;
+			}
+
+			public String getName() {
+				return name;
+			}
+
+			public void setName(String name) {
+				this.name = name;
+			}
+
+			public static TypeEnum codeOf(int code) {
+				for(TypeEnum typeEnum : values()) {
+					if(typeEnum.getCode() == code) {
+						return typeEnum;
+					}
+				}
+				throw new RuntimeException("么有找到对应的枚举");
+			}
+		}
 	}
 
 }

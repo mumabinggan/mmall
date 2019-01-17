@@ -25,4 +25,6 @@ public interface ProductMapper {
 
     List<Product> selectListByProductNameAndCategoryIdList(@Param("productName") String productName,
                                                            @Param("categoryIdList") List<Integer> categoryIdList);
+
+//    int batchUpdateByPrimaryKeySelective(List<Product> productList);;
 }
