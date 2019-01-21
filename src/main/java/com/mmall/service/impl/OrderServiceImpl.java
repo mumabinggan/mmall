@@ -26,6 +26,7 @@ import com.mmall.utils.JHDateTimeUtil;
 import com.mmall.utils.JHFTPUtils;
 import com.mmall.utils.JHPropertiesUtil;
 import com.mmall.vo.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.weaver.ast.Or;
 import org.slf4j.Logger;
@@ -39,9 +40,8 @@ import java.math.BigDecimal;
 import java.util.*;
 
 @Service("iOrderService")
+@Slf4j
 public class OrderServiceImpl implements IOrderService {
-
-	private static Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
 	@Autowired
 	private OrderMapper orderMapper;
@@ -157,7 +157,7 @@ public class OrderServiceImpl implements IOrderService {
 		AlipayF2FPrecreateResult result = tradeService.tradePrecreate(builder);
 		switch (result.getTradeStatus()) {
 			case SUCCESS:
-				logger.info("支付宝预下单成功: )");
+				log.info("支付宝预下单成功: )");
 
 				AlipayTradePrecreateResponse response = result.getResponse();
 				dumpResponse(response);
@@ -177,17 +177,17 @@ public class OrderServiceImpl implements IOrderService {
 
 				File targetFile = new File(path, fileName);
 				JHFTPUtils.uploadFiles(Lists.newArrayList(targetFile));
-				logger.info("filePath:" + qrPath);
+				log.info("filePath:" + qrPath);
 				String qrUrl = JHPropertiesUtil.getProperty("ftp.server.http.prefix");
 				return qrUrl;
 			case FAILED:
-				logger.error("支付宝预下单失败!!!");
+				log.error("支付宝预下单失败!!!");
 				break;
 			case UNKNOWN:
-				logger.error("系统异常，预下单状态未知!!!");
+				log.error("系统异常，预下单状态未知!!!");
 				break;
 			default:
-				logger.error("不支持的交易状态，交易返回异常!!!");
+				log.error("不支持的交易状态，交易返回异常!!!");
 				break;
 		}
 		return null;
@@ -195,12 +195,12 @@ public class OrderServiceImpl implements IOrderService {
 
 	private void dumpResponse(AlipayResponse response) {
 		if (response != null) {
-			logger.info(String.format("code:%s, msg:%s", response.getCode(), response.getMsg()));
+			log.info(String.format("code:%s, msg:%s", response.getCode(), response.getMsg()));
 			if (StringUtils.isNotEmpty(response.getSubCode())) {
-				logger.info(String.format("subCode:%s, subMsg:%s", response.getSubCode(),
+				log.info(String.format("subCode:%s, subMsg:%s", response.getSubCode(),
 						response.getSubMsg()));
 			}
-			logger.info("vbody:" + response.getBody());
+			log.info("vbody:" + response.getBody());
 		}
 	}
 

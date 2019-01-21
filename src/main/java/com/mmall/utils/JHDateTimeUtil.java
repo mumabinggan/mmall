@@ -1,5 +1,6 @@
 package com.mmall.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -7,9 +8,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@Slf4j
 public class JHDateTimeUtil {
-
-	private static Logger logger = LoggerFactory.getLogger(JHDateTimeUtil.class);
 
 	private static final String defaultFormat = "yyyy-MM-dd HH:mm:ss";
 
@@ -19,7 +19,7 @@ public class JHDateTimeUtil {
 		try {
 			date = dateFormat.parse(dateTimeStr);
 		} catch (ParseException e) {
-			logger.error("字符串转Date异常", e);
+			log.error("字符串转Date异常", e);
 		}
 		return date;
 	}

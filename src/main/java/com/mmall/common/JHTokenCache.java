@@ -3,15 +3,15 @@ package com.mmall.common;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class JHTokenCache {
-
-	private static Logger logger = LoggerFactory.getLogger(JHTokenCache.class);
 
 	private static String cacheUnHitDefaultValue = "null";
 
@@ -45,7 +45,7 @@ public class JHTokenCache {
 				value = null;
 			}
 		} catch (ExecutionException e) {
-			logger.error("localCache get error");
+			log.error("localCache get error");
 		}
 		return value;
 	}
